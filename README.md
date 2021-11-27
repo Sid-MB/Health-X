@@ -1,4 +1,4 @@
-# Health Stats
+# Health X
 ## Better interfacing with HealthKit
 
 HealthKit is notoriously hard to work with. 
