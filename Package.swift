@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Health Stats",
+    platforms: [
+        .iOS(.v15), .watchOS(.v8)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -22,7 +25,7 @@ let package = Package(
             name: "Health Stats",
             dependencies: []),
         .testTarget(
-            name: "Health StatsTests",
+            name: "Health Stats Tests",
             dependencies: ["Health Stats"]),
     ]
 )
