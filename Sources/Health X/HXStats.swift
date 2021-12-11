@@ -13,7 +13,7 @@ import Combine
 /// Also works with `HXAccess` to retrieve authorization for data types.
 public class HXStats: ObservableObject {
     
-    public var stepCount: Int?
+    @Published public var stepCount: Int?
     
     internal init() {
         self.store = HKHealthStore.init()
@@ -22,10 +22,18 @@ public class HXStats: ObservableObject {
 
     private var store: HKHealthStore
     private var access: HXAccess
-
+    
+    // TODO: Updates automatically, @Published automatically fired.
     func update() async {
-        if let steps = try? await access.getSteps() {
-            stepCount = steps
+        do {
+            stepCount = try await access.getSteps()
+        } catch {
+            switch error {
+            case HXAccess.QueryError.authAttempted:
+                print("Authorization was attempted automatically.")
+            default:
+                assertionFailure(error.localizedDescription)
+            }
         }
     }
 }

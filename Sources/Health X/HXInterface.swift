@@ -2,12 +2,12 @@ import Combine
 
 /// An observable object for interacting with HXStats in an efficient matter.
 public class HXInterface: ObservableObject {
-    init() {
+    public init() {
         stats = .init()
     }
     
     // MARK: -
-    private(set) var stats: HXStats
+    public private(set) var stats: HXStats
     
     public var updateAll: (() async ->()) {
         stats.update

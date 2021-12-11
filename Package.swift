@@ -24,8 +24,8 @@ let package = Package(
         .target(
             name: "Health X",
             dependencies: []),
-        .testTarget(
-            name: "Health X Tests",
-            dependencies: ["Health X"]),
+//        .testTarget(
+//            name: "Health X Tests",
+//            dependencies: ["Health X"]),
     ]
 )
