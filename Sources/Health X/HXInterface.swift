@@ -7,5 +7,9 @@ public class HXInterface: ObservableObject {
     }
     
     // MARK: -
-    var stats: HXStats
+    private(set) var stats: HXStats
+    
+    public var updateAll: (() async ->()) {
+        stats.update
+    }
 }

@@ -20,11 +20,11 @@ public class HXStats: ObservableObject {
         access = HXAccess(store: store)
     }
 
-    var store: HKHealthStore
-    var access: HXAccess
+    private var store: HKHealthStore
+    private var access: HXAccess
 
     func update() async {
-        if let steps = await access.getSteps() {
+        if let steps = try? await access.getSteps() {
             stepCount = steps
         }
     }

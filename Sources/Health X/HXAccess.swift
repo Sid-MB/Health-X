@@ -10,8 +10,8 @@ import HealthKit
 struct HXAccess {
     var store: HKHealthStore
     
-    func getSteps() async -> Int? {
-        return try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Int, Swift.Error>) in
+    func getSteps() async throws -> Int {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Int, Swift.Error>) in
             let query = HKStatisticsQuery(quantityType: HKQuantityType(.stepCount), quantitySamplePredicate: HXPredicate.Time.today, options: .cumulativeSum) { (query, possibleStats, possibleError) in
                 guard let statistics = possibleStats else {
                     continuation.resume(throwing: QueryError.nilStatistics)
