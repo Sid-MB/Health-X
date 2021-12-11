@@ -15,7 +15,7 @@ public class HXStats: ObservableObject {
     
     @Published public var stepCount: Int?
     
-    internal init() {
+    public init() {
         self.store = HKHealthStore.init()
         access = HXAccess(store: store)
     }
@@ -24,9 +24,13 @@ public class HXStats: ObservableObject {
     private var access: HXAccess
     
     // TODO: Updates automatically, @Published automatically fired.
-    func update() async {
+    public func update() async {
         do {
-            stepCount = try await access.getSteps()
+            let newStepVal = try await access.getSteps()
+            DispatchQueue.main.async {
+                self.stepCount = newStepVal
+                ///*Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.
+            }
         } catch {
             switch error {
             case HXAccess.QueryError.authAttempted:
